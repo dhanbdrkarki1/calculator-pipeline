@@ -45,6 +45,7 @@ pipeline {
     }
     post {
         always {
+            echo 'I will always say hello again'
             mail to: 'dhanbdrkarki111@gmail.com'
             subject: "Completed Pipeline: ${currentBuild.fullDisplayName}"
             body: " Your build completed, please check: ${env.BUILD_URL}"
