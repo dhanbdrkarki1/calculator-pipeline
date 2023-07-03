@@ -4,6 +4,7 @@ plugins {
 }
 
 apply plugin: 'io.spring.dependency-management'
+// Code coverage
 apply plugin: "jacoco"
 apply plugin: 'checkstyle'
 
@@ -28,6 +29,7 @@ jacoco {
     toolVersion = "0.8.6"
 }
 
+// failing gradle in case of too low code coverage
 jacocoTestCoverageVerification {
 	violationRules {
 		rule {
