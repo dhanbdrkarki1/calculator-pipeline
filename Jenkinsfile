@@ -1,5 +1,8 @@
 pipeline {
     agent any 
+    triggers {
+        pollSCM('* * * * *')
+    }
     stages {
         stage("Checkout"){
             steps{
@@ -40,5 +43,13 @@ pipeline {
             }
         }
     }
+    post {
+        always {
+            mail to: 'dhanbdrkarki111@gmail.com'
+            subject: "Completed Pipeline: ${currentBuild.fullDisplayName}"
+            body: " Your build completed, please check: ${env.BUILD_URL}"
+        }
+    }
+
 }
 
