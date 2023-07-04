@@ -88,6 +88,7 @@ pipeline {
         stage("Staging"){
             steps{
                 sh "docker run -it --rm -d -p 8765:8080 --name calculator $DOCKERHUB_CREDENTIALS_USR/calculator:$BUILD_NUMBER"
+                sh "docker ps"
             }
         }
 
