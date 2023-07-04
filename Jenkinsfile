@@ -67,7 +67,7 @@ pipeline {
 
         stage("Docker login"){
             steps{
-                sh "echo $DOCKERHUB_CREDENTIALS_PSW | sudo docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin"
+                sh "echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin"
                 echo 'Login completed...'
             }
         }
@@ -82,7 +82,10 @@ pipeline {
 
     // slack integration
     post {
-        always {
+        failure{
+            echo "Better luck next time bro..."
+        }
+        success {
             echo 'Haha completed..'
             // mail(to: 'dhanbdrkarki111@gmail.com', subject: "Completed Pipeline: ${currentBuild.fullDisplayName}", body: "Your build completed, please check: ${env.BUILD_URL}")
         }
