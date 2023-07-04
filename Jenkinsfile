@@ -47,8 +47,21 @@ pipeline {
                 ])
             }
         }
+
+        stage("Package"){
+            steps{
+                sh "./gradlew build"
+            }
+        }
+
+        stage("Docker build"){
+            steps{
+                sh "docker build -t leszko/calculator ."
+            }
+        }
     }
 
+    // slack integration
     post {
         always {
             echo 'I will always say hello again'
