@@ -12,7 +12,7 @@ pipeline {
     stages {
         stage("Checkout") {
             steps {
-                git branch: 'main', url: 'https://github.com/dhanbdrkarki1/calculator-pipeline.git'
+                git branch: 'feature', url: 'https://github.com/dhanbdrkarki1/calculator-pipeline.git'
             }
         }
 
@@ -103,9 +103,6 @@ pipeline {
 
     // slack integration remaining
     post {
-        always {
-            sh "docker stop calculator"
-        }
         failure{
             echo "Better luck next time bro..."
         }
