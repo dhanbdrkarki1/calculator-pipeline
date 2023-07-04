@@ -5,6 +5,10 @@ pipeline {
     //     pollSCM('* * * * *')
     // }
 
+    environment {     
+        DOCKERHUB_CREDENTIALS= credentials('dockerhubcredentials')     
+    } 
+
     stages {
         stage("Checkout") {
             steps {
@@ -57,12 +61,21 @@ pipeline {
         stage("Docker build"){
             steps{
                 sh "docker build -t dhan007/calculator ."
+                echo "Build completed..."
+            }
+        }
+
+        stage("Docker login"){
+            steps{
+                sh "echo $DOCKERHUB_CREDENTIALS_PSW | sudo docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin"
+                echo 'Login completed...'
             }
         }
 
         stage("Docker Push"){
             steps{
-                sh "docker push dhan007/calculator"
+                sh "docker push dhan007/calculator:$BUILD_NUMBER"
+                echo "push completed"
             }
         }
     }
@@ -70,8 +83,8 @@ pipeline {
     // slack integration
     post {
         always {
-            echo 'I will always say hello again'
-            mail(to: 'dhanbdrkarki111@gmail.com', subject: "Completed Pipeline: ${currentBuild.fullDisplayName}", body: "Your build completed, please check: ${env.BUILD_URL}")
+            echo 'Haha completed..'
+            // mail(to: 'dhanbdrkarki111@gmail.com', subject: "Completed Pipeline: ${currentBuild.fullDisplayName}", body: "Your build completed, please check: ${env.BUILD_URL}")
         }
     }
 }
