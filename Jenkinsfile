@@ -56,7 +56,13 @@ pipeline {
 
         stage("Docker build"){
             steps{
-                sh "docker build -t leszko/calculator ."
+                sh "docker build -t dhan007/calculator ."
+            }
+        }
+
+        stage("Docker Push"){
+            steps{
+                sh "docker push dhan007/calculator"
             }
         }
     }
