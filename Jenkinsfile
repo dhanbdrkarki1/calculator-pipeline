@@ -84,10 +84,26 @@ pipeline {
                 echo "push completed"
             }
         }
+
+        stage("Staging"){
+            steps{
+                sh "docker run -it --rm -dp 8765:8080 --name calculator $DOCKERHUB_CREDENTIALS_USR/calculator:$BUILD_NUMBER"
+            }
+        }
+
+        stage("Acceptance Test"){
+            steps{
+                sleep 60
+                sh "./acceptance_test.sh"
+            }
+        }
     }
 
-    // slack integration
+    // slack integration remaining
     post {
+        always {
+            sh "docker stop calculator"
+        }
         failure{
             echo "Better luck next time bro..."
         }
