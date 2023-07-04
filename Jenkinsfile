@@ -75,7 +75,8 @@ pipeline {
 
         stage("Docker Push"){
             steps{
-                sh "docker push dhan007/calculator:$BUILD_NUMBER"
+                sh "docker tag $DOCKERHUB_CREDENTIALS_USR/calculator $DOCKERHUB_CREDENTIALS_USR/calculator:$BUILD_NUMBER"
+                sh "docker push $DOCKERHUB_CREDENTIALS_USR/calculator:$BUILD_NUMBER"
                 echo "push completed"
             }
         }
