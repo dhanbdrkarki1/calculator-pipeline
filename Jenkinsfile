@@ -87,14 +87,14 @@ pipeline {
 
         stage("Staging"){
             steps{
-                sh "docker run -it --rm -dp 8765:8080 --name calculator $DOCKERHUB_CREDENTIALS_USR/calculator:$BUILD_NUMBER"
+                sh "docker run -it --rm -d -p 8765:8080 --name calculator $DOCKERHUB_CREDENTIALS_USR/calculator:$BUILD_NUMBER"
             }
         }
 
         stage("Acceptance Test"){
             steps{
                 sleep 60
-                sh "./acceptance_test.sh"
+                sh "./acceptance-test.sh"
             }
         }
     }
