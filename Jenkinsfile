@@ -12,7 +12,7 @@ pipeline {
     stages {
         stage("Checkout") {
             steps {
-                git branch: 'feature', url: 'https://github.com/dhanbdrkarki1/calculator-pipeline.git'
+                git branch: 'main', url: 'https://github.com/dhanbdrkarki1/calculator-pipeline.git'
             }
         }
 
@@ -94,7 +94,7 @@ pipeline {
 
         stage("Acceptance Test"){
             steps{
-                sleep 60
+                sleep 15
                 sh "chmod u+x ./acceptance-test.sh"
                 sh "./acceptance-test.sh"
             }
